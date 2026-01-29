@@ -1,46 +1,506 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>OIM3690 - Web Development</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Viraj Shah's course hub for OIM3690 Web Development: projects, assignments, resources, and weekly learning log." />
+  <meta name="author" content="Viraj Shah" />
+  <title>Viraj Shah | OIM3690 Web Development</title>
+
   <style>
+    :root {
+      --bg: #0b1220;
+      --panel: rgba(255, 255, 255, 0.07);
+      --panel-strong: rgba(255, 255, 255, 0.10);
+      --text: rgba(255, 255, 255, 0.92);
+      --muted: rgba(255, 255, 255, 0.70);
+      --border: rgba(255, 255, 255, 0.14);
+      --accent: #7c5cff;
+      --accent2: #39d0ff;
+      --shadow: 0 14px 40px rgba(0,0,0,0.35);
+      --radius: 16px;
+      --max: 980px;
+    }
+
+    [data-theme="light"] {
+      --bg: #f6f7fb;
+      --panel: rgba(0, 0, 0, 0.04);
+      --panel-strong: rgba(0, 0, 0, 0.06);
+      --text: rgba(0, 0, 0, 0.86);
+      --muted: rgba(0, 0, 0, 0.62);
+      --border: rgba(0, 0, 0, 0.10);
+      --shadow: 0 14px 40px rgba(0,0,0,0.10);
+    }
+
     * { box-sizing: border-box; }
-    body { font-family: system-ui, sans-serif; line-height: 1.6; max-width: 720px; margin: 0 auto; padding: 2rem; background: #f0f2f5; color: #1a1a1a; }
-    header { background: #2c3e50; color: #fff; padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem; }
-    header h1 { border: none; margin: 0 0 0.25rem 0; }
-    header p { margin: 0; opacity: 0.9; }
-    section { background: #fff; padding: 1.25rem 1.5rem; border-radius: 8px; margin-bottom: 1rem; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
-    h2 { font-size: 1rem; margin: 0 0 0.5rem 0; color: #2c3e50; }
-    a { color: #3498db; }
-    ul { padding-left: 1.25rem; margin: 0; }
-    footer { text-align: center; margin-top: 1.5rem; color: #666; font-size: 0.9rem; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color: var(--text);
+      background: radial-gradient(1200px 600px at 10% 0%, rgba(124, 92, 255, 0.30), transparent 60%),
+                  radial-gradient(900px 500px at 90% 20%, rgba(57, 208, 255, 0.22), transparent 55%),
+                  var(--bg);
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    a.underline { text-decoration: underline; text-underline-offset: 3px; }
+
+    .skip-link {
+      position: absolute;
+      left: -999px;
+      top: 12px;
+      padding: 10px 14px;
+      background: var(--panel-strong);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+    }
+    .skip-link:focus { left: 12px; z-index: 9999; }
+
+    .container {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(12px);
+      background: color-mix(in srgb, var(--bg) 78%, transparent);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 14px 24px;
+      max-width: var(--max);
+      margin: 0 auto;
+    }
+    .brand {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      line-height: 1.2;
+    }
+    .brand strong { font-size: 0.98rem; letter-spacing: 0.2px; }
+    .brand span { color: var(--muted); font-size: 0.82rem; }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      justify-content: flex-end;
+    }
+    .chip {
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--panel);
+      color: var(--text);
+      font-size: 0.9rem;
+      transition: transform 140ms ease, background 140ms ease, border-color 140ms ease;
+    }
+    .chip:hover { transform: translateY(-1px); background: var(--panel-strong); border-color: color-mix(in srgb, var(--border) 55%, var(--accent) 45%); }
+    .chip:focus { outline: 2px solid color-mix(in srgb, var(--accent) 70%, transparent); outline-offset: 2px; }
+
+    .toggle {
+      border: 1px solid var(--border);
+      background: var(--panel);
+      color: var(--text);
+      border-radius: 999px;
+      padding: 8px 12px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: transform 140ms ease, background 140ms ease;
+    }
+    .toggle:hover { transform: translateY(-1px); background: var(--panel-strong); }
+    .toggle:focus { outline: 2px solid color-mix(in srgb, var(--accent2) 70%, transparent); outline-offset: 2px; }
+
+    .hero {
+      margin-top: 22px;
+      border: 1px solid var(--border);
+      background: linear-gradient(135deg, color-mix(in srgb, var(--panel) 75%, transparent), color-mix(in srgb, var(--panel-strong) 75%, transparent));
+      border-radius: calc(var(--radius) + 4px);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      position: relative;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(700px 250px at 20% 20%, rgba(124, 92, 255, 0.25), transparent 55%),
+                  radial-gradient(600px 250px at 80% 40%, rgba(57, 208, 255, 0.18), transparent 60%);
+      pointer-events: none;
+    }
+    .hero-inner {
+      position: relative;
+      padding: 28px;
+      display: grid;
+      grid-template-columns: 1.25fr 0.75fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .hero h1 {
+      margin: 0 0 8px 0;
+      font-size: clamp(1.55rem, 2.5vw, 2.25rem);
+      letter-spacing: -0.4px;
+    }
+    .hero p { margin: 0 0 16px 0; color: var(--muted); max-width: 60ch; }
+    .badges { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
+    .badge {
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.05);
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .cta-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 16px; }
+    .btn {
+      padding: 10px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--panel);
+      color: var(--text);
+      font-weight: 600;
+      font-size: 0.95rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      transition: transform 140ms ease, background 140ms ease, border-color 140ms ease;
+    }
+    .btn:hover { transform: translateY(-1px); background: var(--panel-strong); border-color: color-mix(in srgb, var(--border) 55%, var(--accent2) 45%); }
+    .btn.primary {
+      background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 70%, transparent), color-mix(in srgb, var(--accent2) 55%, transparent));
+      border-color: rgba(255,255,255,0.18);
+    }
+
+    .profile-card {
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.06);
+      border-radius: var(--radius);
+      padding: 16px;
+      display: grid;
+      gap: 12px;
+      align-content: start;
+    }
+    .avatar {
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: linear-gradient(135deg, rgba(124,92,255,0.35), rgba(57,208,255,0.22));
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+    }
+    .profile-card h3 { margin: 0; font-size: 1rem; }
+    .kv {
+      display: grid;
+      gap: 8px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+    .kv li { display: flex; justify-content: space-between; gap: 10px; }
+    .kv strong { color: var(--text); font-weight: 650; }
+
+    main { margin-top: 18px; }
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .section {
+      border: 1px solid var(--border);
+      background: var(--panel);
+      border-radius: var(--radius);
+      padding: 18px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+    }
+    .section h2 {
+      margin: 0 0 10px 0;
+      font-size: 1rem;
+      letter-spacing: 0.2px;
+    }
+    .section p, .section li { color: var(--muted); }
+    .section ul { margin: 8px 0 0 0; padding-left: 18px; }
+
+    .cards {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .card {
+      border: 1px solid var(--border);
+      background: var(--panel-strong);
+      border-radius: 14px;
+      padding: 12px 14px;
+      display: grid;
+      gap: 6px;
+      transition: transform 140ms ease, border-color 140ms ease;
+    }
+    .card:hover { transform: translateY(-1px); border-color: color-mix(in srgb, var(--border) 60%, var(--accent) 40%); }
+    .card-title { display: flex; justify-content: space-between; gap: 10px; align-items: baseline; }
+    .card-title strong { color: var(--text); font-weight: 720; }
+    .card small { color: var(--muted); }
+
+    .timeline {
+      margin: 10px 0 0 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 10px;
+    }
+    .timeline li {
+      border-left: 2px solid color-mix(in srgb, var(--border) 55%, var(--accent2) 45%);
+      padding-left: 12px;
+      color: var(--muted);
+    }
+    .timeline strong { color: var(--text); }
+
+    footer {
+      margin: 22px 0 10px;
+      color: var(--muted);
+      font-size: 0.92rem;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .footer-links { display: flex; gap: 10px; flex-wrap: wrap; }
+
+    @media (max-width: 820px) {
+      .hero-inner { grid-template-columns: 1fr; }
+      .grid { grid-template-columns: 1fr; }
+      .nav-inner { padding: 12px 16px; }
+      .container { padding: 18px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { scroll-behavior: auto !important; transition: none !important; }
+    }
   </style>
 </head>
+
 <body>
-  <header>
-    <h1>OIM3690 - Web Development</h1>
-    <p>Course repository for OIM 3690.</p>
-  </header>
-  <main>
-    <section>
-      <h2>About Me</h2>
-      <p>Name: Viraj Shah</p>
-    </section>
-    <section>
-      <h2>About the Course</h2>
-      <ul>
-        <li>Time: 11:30 AM – 1:00 PM</li>
-        <li>Location: Gerber 103</li>
-      </ul>
-    </section>
-    <section>
-      <h2>Links</h2>
-      <p><a href="https://github.com/Vshah513/oim3690">My portfolio</a></p>
-    </section>
-  </main>
-  <footer>
-    <p><small>OIM 3690</small></p>
-  </footer>
+  <a class="skip-link" href="#content">Skip to content</a>
+
+  <div class="nav">
+    <div class="nav-inner">
+      <div class="brand">
+        <strong>Viraj Shah</strong>
+        <span>OIM3690 • Web Development</span>
+      </div>
+
+      <div class="nav-links">
+        <a class="chip" href="#about">About</a>
+        <a class="chip" href="#course">Course</a>
+        <a class="chip" href="#assignments">Assignments</a>
+        <a class="chip" href="#projects">Projects</a>
+        <a class="chip" href="#log">Weekly Log</a>
+        <a class="chip" href="#resources">Resources</a>
+        <a class="chip" href="#links">Links</a>
+        <button class="toggle" id="themeToggle" type="button" aria-label="Toggle theme">Toggle theme</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <header class="hero" aria-label="Page header">
+      <div class="hero-inner">
+        <div>
+          <h1>Course Hub: OIM3690 Web Development</h1>
+          <p>
+            This site tracks my work for OIM3690: assignments, mini-projects, and a weekly learning log.
+            Everything here is built progressively throughout the semester.
+          </p>
+
+          <div class="cta-row">
+            <a class="btn primary" href="https://github.com/Vshah513/oim3690" target="_blank" rel="noreferrer">
+              View GitHub Repo →
+            </a>
+            <a class="btn" href="#projects">See Projects</a>
+            <a class="btn" href="#resources">Useful Resources</a>
+          </div>
+
+          <div class="badges" aria-label="Quick highlights">
+            <span class="badge">HTML • CSS • JavaScript</span>
+            <span class="badge">Responsive UI</span>
+            <span class="badge">Accessibility basics</span>
+          </div>
+        </div>
+
+        <aside class="profile-card" aria-label="Profile card">
+          <div style="display:flex; gap:12px; align-items:center;">
+            <div class="avatar" aria-hidden="true">VS</div>
+            <div>
+              <h3 style="margin:0;">Viraj Shah</h3>
+              <div style="color:var(--muted); font-size:0.9rem;">Student • Builder • OIM3690</div>
+            </div>
+          </div>
+          <ul class="kv">
+            <li><span>Class time</span><strong>11:30 AM – 1:00 PM</strong></li>
+            <li><span>Location</span><strong>Gerber 103</strong></li>
+            <li><span>Focus</span><strong>Front-end fundamentals</strong></li>
+          </ul>
+          <div style="border-top:1px solid var(--border); padding-top:10px; color:var(--muted); font-size:0.92rem;">
+            <span>Tip:</span> Replace the "VS" avatar with a real photo later (optional).
+          </div>
+        </aside>
+      </div>
+    </header>
+
+    <main id="content">
+      <div class="grid">
+        <section class="section" id="about">
+          <h2>About Me</h2>
+          <p>
+            I'm Viraj Shah. This page is my living portfolio for OIM3690—built, refined, and expanded over time.
+          </p>
+          <ul>
+            <li>Goal: build clean, modern, responsive pages</li>
+            <li>Improve: layout systems, forms, semantic HTML, JS interactions</li>
+          </ul>
+        </section>
+
+        <section class="section" id="course">
+          <h2>About the Course</h2>
+          <ul>
+            <li><strong style="color:var(--text);">Time:</strong> 11:30 AM – 1:00 PM</li>
+            <li><strong style="color:var(--text);">Location:</strong> Gerber 103</li>
+          </ul>
+          <p style="margin-top:10px;">
+            This section can later include: syllabus link, grading breakdown, and course outcomes.
+          </p>
+        </section>
+      </div>
+
+      <section class="section" id="assignments" style="margin-top:14px;">
+        <h2>Assignments</h2>
+        <p>Add each assignment as you complete it. Keep it simple and consistent.</p>
+
+        <div class="cards">
+          <div class="card">
+            <div class="card-title">
+              <strong>Assignment 1: Personal course page</strong>
+              <small>Status: In progress</small>
+            </div>
+            <small>Skills: semantic HTML, base styling, layout</small>
+          </div>
+
+          <div class="card">
+            <div class="card-title">
+              <strong>Assignment 2: (Placeholder)</strong>
+              <small>Status: Not started</small>
+            </div>
+            <small>Replace this card with the real assignment details.</small>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="projects" style="margin-top:14px;">
+        <h2>Projects</h2>
+        <p>Mini-projects are where your site looks "real." Even 2–3 strong ones helps a lot.</p>
+
+        <div class="cards">
+          <a class="card" href="https://github.com/Vshah513/oim3690" target="_blank" rel="noreferrer">
+            <div class="card-title">
+              <strong>Course Repository</strong>
+              <small>GitHub</small>
+            </div>
+            <small>Source code and updates for OIM3690 work.</small>
+          </a>
+
+          <div class="card">
+            <div class="card-title">
+              <strong>Project: (Add your next build)</strong>
+              <small>Planned</small>
+            </div>
+            <small>Examples: a responsive landing page, a JS quiz app, a small CRUD-style UI mock.</small>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="log" style="margin-top:14px;">
+        <h2>Weekly Learning Log</h2>
+        <p>This is an easy way to show consistent effort and reflection.</p>
+
+        <ul class="timeline">
+          <li>
+            <strong>Week 1:</strong> Set up base page structure, improved layout and styling.
+          </li>
+          <li>
+            <strong>Week 2:</strong> (Add what you learned: flexbox/grid, forms, responsive nav, etc.)
+          </li>
+          <li>
+            <strong>Week 3:</strong> (Add what you built and what you'd improve.)
+          </li>
+        </ul>
+      </section>
+
+      <section class="section" id="resources" style="margin-top:14px;">
+        <h2>Resources</h2>
+        <p>These are the references I rely on while building.</p>
+        <ul>
+          <li><a class="underline" href="https://developer.mozilla.org/" target="_blank" rel="noreferrer">MDN Web Docs</a></li>
+          <li><a class="underline" href="https://validator.w3.org/" target="_blank" rel="noreferrer">HTML Validator</a></li>
+          <li><a class="underline" href="https://jigsaw.w3.org/css-validator/" target="_blank" rel="noreferrer">CSS Validator</a></li>
+          <li><a class="underline" href="https://web.dev/learn/" target="_blank" rel="noreferrer">web.dev Learn</a></li>
+        </ul>
+      </section>
+
+      <section class="section" id="links" style="margin-top:14px;">
+        <h2>Links</h2>
+        <p>
+          <a class="underline" href="https://github.com/Vshah513/oim3690" target="_blank" rel="noreferrer">
+            GitHub: Vshah513/oim3690
+          </a>
+        </p>
+        <p style="margin-top:10px;">
+          Add more later: LinkedIn, personal portfolio, deployed site link, etc.
+        </p>
+      </section>
+    </main>
+
+    <footer>
+      <div>© <span id="year"></span> Viraj Shah • OIM3690</div>
+      <div class="footer-links">
+        <a class="underline" href="#content">Back to top</a>
+        <a class="underline" href="https://github.com/Vshah513/oim3690" target="_blank" rel="noreferrer">GitHub</a>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    const root = document.documentElement;
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme) root.setAttribute("data-theme", savedTheme);
+
+    document.getElementById("themeToggle").addEventListener("click", () => {
+      const current = root.getAttribute("data-theme");
+      const next = current === "light" ? "" : "light";
+      if (next) root.setAttribute("data-theme", next);
+      else root.removeAttribute("data-theme");
+      localStorage.setItem("theme", next || "");
+    });
+  </script>
 </body>
 </html>

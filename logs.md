@@ -22,4 +22,16 @@ Log what you did each class below. Add a new entry for each session.
 
 ---
 
+## Class 3 — [Date]
+
+*What we did:*
+- Changed the layout of the course page. Added a top nav with sections, hero header, profile card, assignments/projects areas, weekly log, resources, and footer. Also added a dark mode toggle.
+- Inspected babson.edu and used some of the structure/layout ideas for the new page.
+- Created an **images** folder and added my profile photo. Replaced the "VS" placeholder in the profile card with the actual picture.
+- Ran the site locally (python server on 8080) to preview. Committed and pushed everything to GitHub.
+
+*Notes:* Page feels more like a real site now. Need to fill in weekly log and assignment details as we go.
+
+---
+
 *Add more entries below as the course continues.*

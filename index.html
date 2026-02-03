@@ -9,27 +9,30 @@
 
   <style>
     :root {
-      --bg: #0b1220;
-      --panel: rgba(255, 255, 255, 0.07);
-      --panel-strong: rgba(255, 255, 255, 0.10);
-      --text: rgba(255, 255, 255, 0.92);
-      --muted: rgba(255, 255, 255, 0.70);
-      --border: rgba(255, 255, 255, 0.14);
-      --accent: #7c5cff;
-      --accent2: #39d0ff;
+      --bg: #1a2744;
+      --panel: rgba(232, 224, 212, 0.08);
+      --panel-strong: rgba(232, 224, 212, 0.12);
+      --text: rgba(245, 240, 232, 0.95);
+      --muted: rgba(245, 240, 232, 0.72);
+      --border: rgba(232, 224, 212, 0.18);
+      --accent: #2563eb;
+      --accent2: #60a5fa;
+      --beige: #e8e0d4;
       --shadow: 0 14px 40px rgba(0,0,0,0.35);
       --radius: 16px;
       --max: 980px;
     }
 
     [data-theme="light"] {
-      --bg: #f6f7fb;
-      --panel: rgba(0, 0, 0, 0.04);
-      --panel-strong: rgba(0, 0, 0, 0.06);
-      --text: rgba(0, 0, 0, 0.86);
-      --muted: rgba(0, 0, 0, 0.62);
-      --border: rgba(0, 0, 0, 0.10);
-      --shadow: 0 14px 40px rgba(0,0,0,0.10);
+      --bg: #0a0a0a;
+      --panel: rgba(135, 206, 235, 0.08);
+      --panel-strong: rgba(135, 206, 235, 0.12);
+      --text: rgba(255, 255, 255, 0.95);
+      --muted: rgba(255, 255, 255, 0.7);
+      --border: rgba(135, 206, 235, 0.25);
+      --accent: #7dd3fc;
+      --accent2: #bae6fd;
+      --shadow: 0 14px 40px rgba(0, 0, 0, 0.4);
     }
 
     * { box-sizing: border-box; }
@@ -38,11 +41,15 @@
       margin: 0;
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
       color: var(--text);
-      background: radial-gradient(1200px 600px at 10% 0%, rgba(124, 92, 255, 0.30), transparent 60%),
-                  radial-gradient(900px 500px at 90% 20%, rgba(57, 208, 255, 0.22), transparent 55%),
+      background: radial-gradient(1200px 600px at 10% 0%, rgba(232, 224, 212, 0.25), transparent 60%),
+                  radial-gradient(900px 500px at 90% 20%, rgba(37, 99, 235, 0.18), transparent 55%),
                   var(--bg);
       line-height: 1.6;
     }
+
+    [data-theme="light"] body { background: radial-gradient(1200px 600px at 10% 0%, rgba(125, 211, 252, 0.12), transparent 60%),
+                               radial-gradient(900px 500px at 90% 20%, rgba(186, 230, 253, 0.15), transparent 55%),
+                               var(--bg); }
 
     a { color: inherit; text-decoration: none; }
     a.underline { text-decoration: underline; text-underline-offset: 3px; }
@@ -106,7 +113,7 @@
       font-size: 0.9rem;
       transition: transform 140ms ease, background 140ms ease, border-color 140ms ease;
     }
-    .chip:hover { transform: translateY(-1px); background: var(--panel-strong); border-color: color-mix(in srgb, var(--border) 55%, var(--accent) 45%); }
+    .chip:hover { transform: translateY(-1px); background: var(--panel-strong); border-color: var(--accent); }
     .chip:focus { outline: 2px solid color-mix(in srgb, var(--accent) 70%, transparent); outline-offset: 2px; }
 
     .toggle {
@@ -120,7 +127,7 @@
       transition: transform 140ms ease, background 140ms ease;
     }
     .toggle:hover { transform: translateY(-1px); background: var(--panel-strong); }
-    .toggle:focus { outline: 2px solid color-mix(in srgb, var(--accent2) 70%, transparent); outline-offset: 2px; }
+    .toggle:focus { outline: 2px solid color-mix(in srgb, var(--accent) 70%, transparent); outline-offset: 2px; }
 
     .hero {
       margin-top: 22px;
@@ -135,9 +142,13 @@
       content: "";
       position: absolute;
       inset: 0;
-      background: radial-gradient(700px 250px at 20% 20%, rgba(124, 92, 255, 0.25), transparent 55%),
-                  radial-gradient(600px 250px at 80% 40%, rgba(57, 208, 255, 0.18), transparent 60%);
+      background: radial-gradient(700px 250px at 20% 20%, rgba(232, 224, 212, 0.2), transparent 55%),
+                  radial-gradient(600px 250px at 80% 40%, rgba(37, 99, 235, 0.15), transparent 60%);
       pointer-events: none;
+    }
+    [data-theme="light"] .hero::before {
+      background: radial-gradient(700px 250px at 20% 20%, rgba(125, 211, 252, 0.15), transparent 55%),
+                  radial-gradient(600px 250px at 80% 40%, rgba(186, 230, 253, 0.12), transparent 60%);
     }
     .hero-inner {
       position: relative;
@@ -178,11 +189,13 @@
       gap: 10px;
       transition: transform 140ms ease, background 140ms ease, border-color 140ms ease;
     }
-    .btn:hover { transform: translateY(-1px); background: var(--panel-strong); border-color: color-mix(in srgb, var(--border) 55%, var(--accent2) 45%); }
+    .btn:hover { transform: translateY(-1px); background: var(--panel-strong); border-color: var(--accent2); }
     .btn.primary {
-      background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 70%, transparent), color-mix(in srgb, var(--accent2) 55%, transparent));
-      border-color: rgba(255,255,255,0.18);
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      border-color: rgba(255,255,255,0.2);
+      color: #fff;
     }
+    .btn.primary:hover { color: #fff; border-color: rgba(255,255,255,0.3); }
 
     .profile-card {
       border: 1px solid var(--border);
@@ -192,6 +205,22 @@
       display: grid;
       gap: 12px;
       align-content: start;
+    }
+    .profile-video-wrap {
+      position: relative;
+      width: 100%;
+      max-width: 260px;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      aspect-ratio: 16 / 9;
+      margin-top: 4px;
+    }
+    .profile-video-wrap iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
     }
     .avatar {
       width: 56px;
@@ -251,7 +280,7 @@
       gap: 6px;
       transition: transform 140ms ease, border-color 140ms ease;
     }
-    .card:hover { transform: translateY(-1px); border-color: color-mix(in srgb, var(--border) 60%, var(--accent) 40%); }
+    .card:hover { transform: translateY(-1px); border-color: var(--accent); }
     .card-title { display: flex; justify-content: space-between; gap: 10px; align-items: baseline; }
     .card-title strong { color: var(--text); font-weight: 720; }
     .card small { color: var(--muted); }
@@ -264,7 +293,7 @@
       gap: 10px;
     }
     .timeline li {
-      border-left: 2px solid color-mix(in srgb, var(--border) 55%, var(--accent2) 45%);
+      border-left: 2px solid var(--accent2);
       padding-left: 12px;
       color: var(--muted);
     }
@@ -307,6 +336,7 @@
 
       <div class="nav-links">
         <a class="chip" href="#about">About</a>
+        <a class="chip" href="#business">Business</a>
         <a class="chip" href="#course">Course</a>
         <a class="chip" href="#assignments">Assignments</a>
         <a class="chip" href="#projects">Projects</a>
@@ -356,8 +386,8 @@
             <li><span>Location</span><strong>Gerber 103</strong></li>
             <li><span>Focus</span><strong>Front-end fundamentals</strong></li>
           </ul>
-          <div style="border-top:1px solid var(--border); padding-top:10px; color:var(--muted); font-size:0.92rem;">
-            <span>Tip:</span> Replace the "VS" avatar with a real photo later (optional).
+          <div class="profile-video-wrap" aria-label="Featured video">
+            <iframe src="https://www.youtube.com/embed/M0Ry8P_EaGk?rel=0" title="Viraj Shah featured video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
           </div>
         </aside>
       </div>
@@ -374,6 +404,17 @@
             <li>Goal: build clean, modern, responsive pages</li>
             <li>Improve: layout systems, forms, semantic HTML, JS interactions</li>
           </ul>
+          <p style="margin-top:12px;">
+            <a class="btn" href="https://www.linkedin.com/in/viraj-shah-biz/" target="_blank" rel="noreferrer">Connect on LinkedIn →</a>
+          </p>
+        </section>
+
+        <section class="section" id="business">
+          <h2>Checkmate Academy</h2>
+          <p>My business: chess education and training.</p>
+          <p style="margin-top:10px;">
+            <a class="btn primary" href="https://www.checkmateacademy.org/" target="_blank" rel="noreferrer">Visit Checkmate Academy →</a>
+          </p>
         </section>
 
         <section class="section" id="course">
@@ -465,12 +506,11 @@
       <section class="section" id="links" style="margin-top:14px;">
         <h2>Links</h2>
         <p>
-          <a class="underline" href="https://github.com/Vshah513/oim3690" target="_blank" rel="noreferrer">
-            GitHub: Vshah513/oim3690
-          </a>
-        </p>
-        <p style="margin-top:10px;">
-          Add more later: LinkedIn, personal portfolio, deployed site link, etc.
+          <a class="underline" href="https://github.com/Vshah513/oim3690" target="_blank" rel="noreferrer">GitHub: Vshah513/oim3690</a>
+          ·
+          <a class="underline" href="https://www.linkedin.com/in/viraj-shah-biz/" target="_blank" rel="noreferrer">LinkedIn</a>
+          ·
+          <a class="underline" href="https://www.checkmateacademy.org/" target="_blank" rel="noreferrer">Checkmate Academy</a>
         </p>
       </section>
     </main>

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Session 8 Demo | OIM3690 - Viraj Shah</title>
+  <style>
+    :root {
+      --bg: #1a2744;
+      --panel: rgba(232, 224, 212, 0.08);
+      --panel-strong: rgba(232, 224, 212, 0.12);
+      --text: rgba(245, 240, 232, 0.95);
+      --muted: rgba(245, 240, 232, 0.72);
+      --border: rgba(232, 224, 212, 0.18);
+      --accent: #2563eb;
+      --accent2: #60a5fa;
+      --radius: 16px;
+      --max: 980px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.6;
+    }
+    .container { max-width: var(--max); margin: 0 auto; padding: 24px; }
+    .nav {
+      position: sticky; top: 0; z-index: 50;
+      backdrop-filter: blur(12px);
+      background: color-mix(in srgb, var(--bg) 85%, transparent);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 24px; max-width: var(--max); margin: 0 auto;
+    }
+    .back-link {
+      padding: 8px 14px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--panel);
+      color: var(--text);
+      font-size: 0.9rem;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .back-link:hover { background: var(--panel-strong); border-color: var(--accent); }
+    main { padding: 32px 0; }
+    .session-header { margin-bottom: 28px; }
+    .session-header h1 { margin: 0 0 8px 0; font-size: 1.75rem; }
+    .session-header p { margin: 0; color: var(--muted); font-size: 1rem; }
+    .demo-content {
+      border: 1px solid var(--border);
+      background: var(--panel);
+      border-radius: var(--radius);
+      padding: 28px;
+      min-height: 200px;
+    }
+    .demo-content p { margin: 0 0 12px 0; color: var(--muted); }
+    .demo-content .section-label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent2);
+      margin: 24px 0 8px 0;
+    }
+    .demo-content .section-label:first-of-type { margin-top: 0; }
+    .demo-content h1 { font-size: 1.5rem; margin: 0 0 8px 0; color: var(--text); }
+    .demo-content h2 { font-size: 1.25rem; margin: 20px 0 8px 0; color: var(--text); }
+    .demo-content ul { margin: 12px 0; padding-left: 24px; color: var(--text); }
+    .demo-content li { margin-bottom: 6px; }
+    .demo-content a { color: var(--accent2); text-decoration: none; }
+    .demo-content a:hover { text-decoration: underline; }
+    .demo-content img { max-width: 100%; height: auto; border-radius: 8px; display: block; margin: 12px 0; }
+    .code-block {
+      background: rgba(0,0,0,0.35);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-family: ui-monospace, "Cascadia Code", "SF Mono", Monaco, monospace;
+      font-size: 0.8rem;
+      line-height: 1.5;
+      color: var(--accent2);
+      overflow-x: auto;
+      margin: 10px 0;
+    }
+    .code-block code { white-space: pre; }
+    .takeaways {
+      border-left: 4px solid var(--accent);
+      background: var(--panel-strong);
+      border-radius: 0 10px 10px 0;
+      padding: 14px 18px;
+      margin-top: 24px;
+    }
+    .takeaways h4 { margin: 0 0 8px 0; font-size: 0.95rem; color: var(--accent2); }
+    .takeaways ul { margin: 0; padding-left: 18px; }
+    .takeaways li { margin-bottom: 4px; color: var(--muted); font-size: 0.95rem; }
+    .takeaways li:last-child { margin-bottom: 0; }
+    .best-practice {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-top: 20px;
+      padding: 12px 14px;
+      border: 1px dashed var(--border);
+      border-radius: 8px;
+    }
+    .best-practice strong { color: var(--text); }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav-inner">
+      <a class="back-link" href="course.html">← Back to Course Work</a>
+      <span style="color: var(--muted); font-size: 0.9rem;">Session 8</span>
+    </div>
+  </nav>
+  <div class="container">
+    <main>
+      <header class="session-header">
+        <h1>Session 8 Demo — Connecting CSS &amp; Building a Demo Page</h1>
+        <p>Linking external stylesheets, using inline <code>&lt;style&gt;</code>, and combining HTML with images and links.</p>
+      </header>
+      <div class="demo-content">
+        <p class="section-label">From class: External CSS + inline styles</p>
+
+        <p><strong>In the <code>&lt;head&gt;</code> we learned two ways to add CSS:</strong></p>
+        <div class="code-block">
+          <code>&lt;!-- External stylesheet: reusable across many pages --&gt;
+&lt;link rel="stylesheet" href="/css/styles.css" /&gt;
+
+&lt;!-- Inline &lt;style&gt;: page-specific or quick overrides --&gt;
+&lt;style&gt;
+  /* h1 { color: blue; } */   &lt;!-- Commenting out disables the rule --&gt;
+&lt;/style&gt;</code>
+        </div>
+
+        <hr style="border: none; border-top: 1px solid var(--border); margin: 20px 0;">
+
+        <h1>This is a demo page</h1>
+        <p>Hello, world!</p>
+        <p>
+          Welcome to the demo page. I am a student at
+          <a href="https://www.babson.edu" target="_blank" rel="noreferrer">Babson College</a>.
+        </p>
+        <p>
+          <img
+            src="https://entrepreneurship.babson.edu/wp-content/uploads/2021/09/USNWR-campus-drone-1200x630-1.jpg"
+            alt="A picture of Babson Campus"
+            width="400"
+          />
+        </p>
+
+        <h2>Another Section</h2>
+        <p>This is another section of the demo page.</p>
+        <p>
+          <img src="https://placehold.co/300x200/1a2744/60a5fa?text=cute+cat" alt="A cute cat" width="300" /> 
+          More words — images can sit inline with text when you don’t put them on their own line.
+        </p>
+        <p>
+          You can add more paragraphs and content here. Consider including
+          additional images, lists, or other HTML elements to make your page more
+          interesting.
+        </p>
+
+        <p><strong>Useful links (from class):</strong></p>
+        <ul>
+          <li><a href="course.html">Homepage</a></li>
+          <li><a href="course.html">Course Work</a></li>
+          <li><a href="https://oim3690.github.io" target="_blank" rel="noreferrer">Course site / Personal Website</a></li>
+        </ul>
+
+        <div class="takeaways">
+          <h4>What we learned</h4>
+          <ul>
+            <li><strong>External CSS</strong> — <code>&lt;link rel="stylesheet" href="..."&gt;</code> loads a separate .css file so you can reuse styles across pages.</li>
+            <li><strong>Inline <code>&lt;style&gt;</code></strong> — Rules in the document apply only to that page; good for one-off overrides or demos.</li>
+            <li><strong>Commenting out CSS</strong> — Use <code>/* ... */</code> to turn off a rule without deleting it (handy for debugging).</li>
+            <li><strong>Images</strong> — Use descriptive <code>alt</code> text (e.g. “A picture of Babson Campus”) for accessibility; <code>width</code> controls size without distorting aspect ratio when used alone.</li>
+          </ul>
+        </div>
+
+        <div class="best-practice">
+          <strong>Best practice:</strong> Prefer one main external stylesheet (e.g. <code>styles.css</code>) for layout, typography, and colors. Use inline <code>&lt;style&gt;</code> only for page-specific tweaks or when you’re experimenting. Add <code>rel="noreferrer"</code> to links that open in a new tab (<code>target="_blank"</code>) for security and privacy.
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

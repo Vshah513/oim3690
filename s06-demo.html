@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Session 6 Demo | OIM3690 - Viraj Shah</title>
+  <style>
+    :root {
+      --bg: #1a2744;
+      --panel: rgba(232, 224, 212, 0.08);
+      --panel-strong: rgba(232, 224, 212, 0.12);
+      --text: rgba(245, 240, 232, 0.95);
+      --muted: rgba(245, 240, 232, 0.72);
+      --border: rgba(232, 224, 212, 0.18);
+      --accent: #2563eb;
+      --accent2: #60a5fa;
+      --radius: 16px;
+      --max: 980px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.6;
+    }
+    .container { max-width: var(--max); margin: 0 auto; padding: 24px; }
+    .nav {
+      position: sticky; top: 0; z-index: 50;
+      backdrop-filter: blur(12px);
+      background: color-mix(in srgb, var(--bg) 85%, transparent);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 24px; max-width: var(--max); margin: 0 auto;
+    }
+    .back-link {
+      padding: 8px 14px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--panel);
+      color: var(--text);
+      font-size: 0.9rem;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .back-link:hover { background: var(--panel-strong); border-color: var(--accent); }
+    main { padding: 32px 0; }
+    .session-header { margin-bottom: 28px; }
+    .session-header h1 { margin: 0 0 8px 0; font-size: 1.75rem; }
+    .session-header p { margin: 0; color: var(--muted); font-size: 1rem; }
+    .demo-content {
+      border: 1px solid var(--border);
+      background: var(--panel);
+      border-radius: var(--radius);
+      padding: 28px;
+      min-height: 200px;
+    }
+    .demo-content p { margin: 0; color: var(--muted); }
+    .demo-content p + p { margin-top: 12px; }
+    .code-block {
+      background: rgba(0,0,0,0.35);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px 20px;
+      font-family: ui-monospace, "Cascadia Code", "SF Mono", Monaco, monospace;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: var(--accent2);
+      overflow-x: auto;
+      margin: 20px 0;
+    }
+    .code-block code { white-space: pre; }
+    .benefits-list {
+      list-style: none;
+      padding: 0;
+      margin: 20px 0 0 0;
+    }
+    .benefits-list li {
+      position: relative;
+      padding-left: 24px;
+      margin-bottom: 10px;
+      color: var(--text);
+    }
+    .benefits-list li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: var(--accent2);
+      font-weight: bold;
+    }
+    .demo-label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent2);
+      margin-bottom: 8px;
+    }
+    .live-demo {
+      border: 1px dashed var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      margin-top: 24px;
+      background: rgba(0,0,0,0.2);
+    }
+    .live-demo header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 12px;
+    }
+    .live-demo h1 { margin: 0; font-size: 1.25rem; }
+    .live-demo nav a {
+      color: var(--accent2);
+      text-decoration: none;
+    }
+    .live-demo nav a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav-inner">
+      <a class="back-link" href="course.html">← Back to Course Work</a>
+      <span style="color: var(--muted); font-size: 0.9rem;">Session 6</span>
+    </div>
+  </nav>
+  <div class="container">
+    <main>
+      <header class="session-header">
+        <h1>Session 6 Demo</h1>
+        <p>What I learned in this session — demo and notes for instructor review.</p>
+      </header>
+      <div class="demo-content">
+        <p><strong>Session 6:</strong> Semantic HTML — the “better version” of marking up a site header and navigation.</p>
+
+        <p class="demo-label">Better version (from slides)</p>
+        <div class="code-block">
+          <code>&lt;header&gt;
+  &lt;h1&gt;My Site&lt;/h1&gt;
+  &lt;nav&gt;
+    &lt;a href="/"&gt;Home&lt;/a&gt;
+  &lt;/nav&gt;
+&lt;/header&gt;</code>
+        </div>
+
+        <p><strong>What's better?</strong></p>
+        <ul class="benefits-list">
+          <li><strong>Clear structure</strong> — Header and nav are explicitly defined, not just divs.</li>
+          <li><strong>Screen readers understand it</strong> — Assistive tech can identify landmarks and navigation.</li>
+          <li><strong>Proper heading hierarchy</strong> — One <code>&lt;h1&gt;</code> for the site title sets the document outline.</li>
+        </ul>
+
+        <p class="demo-label" style="margin-top: 28px;">Live example (same structure)</p>
+        <div class="live-demo">
+          <header>
+            <h1>My Site</h1>
+            <nav>
+              <a href="/">Home</a>
+            </nav>
+          </header>
+          <p style="margin: 0; color: var(--muted); font-size: 0.95rem;">This box uses the same semantic HTML so the page has clear structure and is accessible to screen readers.</p>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

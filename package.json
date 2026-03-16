@@ -1,0 +1,8 @@
+{
+  "name": "oim3690",
+  "private": true,
+  "scripts": {
+    "start": "python3 -m http.server 3690",
+    "run": "python3 -m http.server 3690"
+  }
+}

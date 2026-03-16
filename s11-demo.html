@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Session 11 Demo | OIM3690 - Viraj Shah</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Libertinus+Keyboard&family=Oswald:wght@200..700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #1a2744;
+      --panel: rgba(232, 224, 212, 0.08);
+      --panel-strong: rgba(232, 224, 212, 0.12);
+      --text: rgba(245, 240, 232, 0.95);
+      --muted: rgba(245, 240, 232, 0.72);
+      --border: rgba(232, 224, 212, 0.18);
+      --accent: #2563eb;
+      --accent2: #60a5fa;
+      --radius: 16px;
+      --max: 980px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.6;
+    }
+    .container { max-width: var(--max); margin: 0 auto; padding: 24px; }
+    .nav {
+      position: sticky; top: 0; z-index: 50;
+      backdrop-filter: blur(12px);
+      background: color-mix(in srgb, var(--bg) 85%, transparent);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 24px; max-width: var(--max); margin: 0 auto;
+    }
+    .back-link {
+      padding: 8px 14px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--panel);
+      color: var(--text);
+      font-size: 0.9rem;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .back-link:hover { background: var(--panel-strong); border-color: var(--accent); }
+    main { padding: 32px 0; }
+    .session-header { margin-bottom: 28px; }
+    .session-header h1 { margin: 0 0 8px 0; font-size: 1.75rem; }
+    .session-header p { margin: 0; color: var(--muted); font-size: 1rem; }
+    .demo-content {
+      border: 1px solid var(--border);
+      background: var(--panel);
+      border-radius: var(--radius);
+      padding: 28px;
+      min-height: 200px;
+    }
+    .demo-content p { margin: 0 0 12px 0; color: var(--muted); }
+    .demo-content .section-label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent2);
+      margin: 24px 0 8px 0;
+    }
+    .demo-content .section-label:first-of-type { margin-top: 0; }
+    .code-block {
+      background: rgba(0,0,0,0.35);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-family: ui-monospace, "Cascadia Code", "SF Mono", Monaco, monospace;
+      font-size: 0.8rem;
+      line-height: 1.5;
+      color: var(--accent2);
+      overflow-x: auto;
+      margin: 10px 0;
+    }
+    .code-block code { white-space: pre; }
+    .demo-content hr { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
+    .demo-content .live-demo { margin-top: 20px; }
+    .demo-content .live-demo .container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+      margin: 16px 0;
+    }
+    .demo-content .live-demo .card {
+      border: 1px solid var(--border);
+      background: var(--panel-strong);
+      border-radius: 12px;
+      padding: 16px;
+    }
+    .demo-content .live-demo .card.my-element {
+      border-color: var(--accent2);
+      box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.3);
+    }
+    .demo-content .live-demo .card h2 { margin: 0 0 10px 0; font-size: 1.2rem; color: var(--text); }
+    .demo-content .live-demo .card p { margin: 0 0 10px 0; color: var(--muted); font-size: 0.95rem; }
+    .demo-content .live-demo .card p:last-child { margin-bottom: 0; }
+    .demo-content .live-demo .yellow { color: #facc15; }
+    .demo-content .live-demo #second-paragraph { border-left: 3px solid var(--accent2); padding-left: 10px; }
+    .demo-content .live-demo .highlight { background: rgba(96, 165, 250, 0.25); padding: 0 4px; border-radius: 4px; color: var(--accent2); }
+    .demo-content .live-demo .julissa.yellow { color: #fbbf24; font-style: italic; }
+    .demo-content .live-demo .button {
+      padding: 6px 12px;
+      margin-left: 8px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--accent);
+      color: #fff;
+      font-size: 0.85rem;
+      cursor: pointer;
+    }
+    .demo-content .live-demo .button:hover { background: var(--accent2); }
+    .demo-content .live-demo a { color: var(--accent2); text-decoration: none; }
+    .demo-content .live-demo a:hover { text-decoration: underline; }
+    .demo-content .live-demo img { max-width: 100%; height: auto; border-radius: 8px; margin: 10px 0; display: block; }
+    .demo-content .live-demo ul { margin: 16px 0; padding-left: 24px; color: var(--text); }
+    .demo-content .live-demo li { margin-bottom: 6px; }
+    .takeaways {
+      border-left: 4px solid var(--accent);
+      background: var(--panel-strong);
+      border-radius: 0 10px 10px 0;
+      padding: 14px 18px;
+      margin-top: 24px;
+    }
+    .takeaways h4 { margin: 0 0 8px 0; font-size: 0.95rem; color: var(--accent2); }
+    .takeaways ul { margin: 0; padding-left: 18px; }
+    .takeaways li { margin-bottom: 4px; color: var(--muted); font-size: 0.95rem; }
+    .takeaways li:last-child { margin-bottom: 0; }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav-inner">
+      <a class="back-link" href="course.html">← Back to Course Work</a>
+      <span style="color: var(--muted); font-size: 0.9rem;">Session 11</span>
+    </div>
+  </nav>
+  <div class="container">
+    <main>
+      <header class="session-header">
+        <h1>Session 11 Demo — Multiple Classes &amp; Modifiers</h1>
+        <p>Building on container + cards: using <code>class="card my-element"</code> to combine layout with a modifier or hook.</p>
+      </header>
+      <div class="demo-content">
+        <p class="section-label">From class: Same page as Session 10, with an extra class</p>
+
+        <p>Session 11 uses the same structure as Session 10 but loads <code>s11-styles.css</code> and adds a second class to the first card:</p>
+        <div class="code-block">
+          <code>&lt;div class="card my-element"&gt;
+  &lt;!-- first card: gets both .card and .my-element styles --&gt;
+  ...
+&lt;/div&gt;
+
+&lt;div class="card"&gt;
+  &lt;!-- second card: only .card --&gt;
+  ...
+&lt;/div&gt;</code>
+        </div>
+
+        <p><strong>Why two classes?</strong> <code>.card</code> gives the shared layout (border, padding, background). <code>.my-element</code> can add extra styling for this specific card (e.g. highlight, accent border) or be used as a hook for JavaScript (e.g. <code>document.querySelector('.my-element')</code>).</p>
+
+        <hr>
+
+        <p class="section-label">Live demo (first card has <code>card my-element</code>)</p>
+        <div class="live-demo">
+          <h1>This is a demo page</h1>
+          <div class="container">
+            <div class="card my-element">
+              <p class="yellow">Hello, world! <button type="button" class="button">Click Me</button></p>
+              <p class="yellow" id="second-paragraph">
+                <span class="highlight">Welcome</span> to the demo page. I am a student at
+                <a href="https://www.babson.edu" target="_blank" rel="noreferrer">Babson College</a>.
+                <img
+                  src="https://entrepreneurship.babson.edu/wp-content/uploads/2021/09/USNWR-campus-drone-1200x630-1.jpg"
+                  alt="A picture of Babson Campus"
+                  width="400"
+                />
+              </p>
+            </div>
+            <div class="card">
+              <h2>Another Section</h2>
+              <p>
+                This is another section of the demo page.
+                <img src="https://placehold.co/300x200/1a2744/60a5fa?text=cute+cat" alt="A cute cat" width="300" /> more words
+              </p>
+              <p class="julissa yellow">
+                You can add more paragraphs and content here. Consider including
+                additional images, lists, or other HTML elements to make your page more
+                interesting.
+              </p>
+            </div>
+          </div>
+          <ul>
+            <li><span class="highlight"><a href="course.html">Homepage</a></span></li>
+            <li><a href="course.html">Course Work</a></li>
+            <li><a href="https://oim3690.github.io" target="_blank" rel="noreferrer">My Personal Website</a></li>
+            <li><a href="#contact">Contact Us</a></li>
+            <li><a href="#about">About Us</a></li>
+          </ul>
+          <img src="https://placehold.co/300x200/1a2744/60a5fa?text=cat" alt="A cute cat" width="300" />
+        </div>
+
+        <div class="takeaways">
+          <h4>What we learned</h4>
+          <ul>
+            <li><strong>Multiple classes on one element</strong> — <code>class="card my-element"</code> means the element matches both <code>.card</code> and <code>.my-element</code>. You can style it with <code>.card { ... }</code>, <code>.my-element { ... }</code>, or <code>.card.my-element { ... }</code> for rules that apply only when both are present.</li>
+            <li><strong>Base + modifier</strong> — <code>.card</code> is the base; <code>.my-element</code> is a modifier. One card gets the modifier (accent border, highlight); the other stays default. This pattern scales to many cards with a few variants (e.g. <code>card featured</code>, <code>card muted</code>).</li>
+            <li><strong>JavaScript hooks</strong> — Classes like <code>my-element</code> are easy to target in JS (<code>querySelector('.my-element')</code>) without changing the visual design. Use meaningful names (e.g. <code>card-featured</code>, <code>js-expand</code>) for clarity.</li>
+            <li><strong>Separate stylesheet per session</strong> — Using <code>s11-styles.css</code> keeps Session 11’s overrides and new rules in one place, so you can compare or swap styles without touching the HTML structure.</li>
+          </ul>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

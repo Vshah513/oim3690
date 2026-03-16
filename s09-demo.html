@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Session 9 Demo | OIM3690 - Viraj Shah</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Libertinus+Keyboard&family=Oswald:wght@200..700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #1a2744;
+      --panel: rgba(232, 224, 212, 0.08);
+      --panel-strong: rgba(232, 224, 212, 0.12);
+      --text: rgba(245, 240, 232, 0.95);
+      --muted: rgba(245, 240, 232, 0.72);
+      --border: rgba(232, 224, 212, 0.18);
+      --accent: #2563eb;
+      --accent2: #60a5fa;
+      --radius: 16px;
+      --max: 980px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.6;
+    }
+    .container { max-width: var(--max); margin: 0 auto; padding: 24px; }
+    .nav {
+      position: sticky; top: 0; z-index: 50;
+      backdrop-filter: blur(12px);
+      background: color-mix(in srgb, var(--bg) 85%, transparent);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 24px; max-width: var(--max); margin: 0 auto;
+    }
+    .back-link {
+      padding: 8px 14px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--panel);
+      color: var(--text);
+      font-size: 0.9rem;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .back-link:hover { background: var(--panel-strong); border-color: var(--accent); }
+    main { padding: 32px 0; }
+    .session-header { margin-bottom: 28px; }
+    .session-header h1 { margin: 0 0 8px 0; font-size: 1.75rem; }
+    .session-header p { margin: 0; color: var(--muted); font-size: 1rem; }
+    .demo-content {
+      border: 1px solid var(--border);
+      background: var(--panel);
+      border-radius: var(--radius);
+      padding: 28px;
+      min-height: 200px;
+    }
+    .demo-content p { margin: 0 0 12px 0; color: var(--muted); }
+    .demo-content .section-label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent2);
+      margin: 24px 0 8px 0;
+    }
+    .demo-content .section-label:first-of-type { margin-top: 0; }
+    .code-block {
+      background: rgba(0,0,0,0.35);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-family: ui-monospace, "Cascadia Code", "SF Mono", Monaco, monospace;
+      font-size: 0.8rem;
+      line-height: 1.5;
+      color: var(--accent2);
+      overflow-x: auto;
+      margin: 10px 0;
+    }
+    .code-block code { white-space: pre; }
+    /* Live demo from class: Google Fonts + selectors (classes, IDs, multiple classes) */
+    .demo-content .live-demo {
+      border: 1px dashed var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      margin-top: 20px;
+      background: rgba(0,0,0,0.2);
+      font-family: 'Oswald', system-ui, sans-serif;
+    }
+    .demo-content .live-demo h1 { color: #3b82f6; margin: 0 0 8px 0; font-size: 1.5rem; }
+    .demo-content .live-demo h2 { color: #facc15; margin: 16px 0 8px 0; font-size: 1.25rem; }
+    .demo-content .live-demo p { color: #a855f7; margin: 0 0 10px 0; font-family: 'Libertinus Keyboard', Georgia, serif; font-size: 0.95rem; }
+    .demo-content .live-demo .yellow { color: #facc15 !important; }
+    .demo-content .live-demo #second-paragraph { border-left: 3px solid #facc15; padding-left: 10px; }
+    .demo-content .live-demo .julissa.yellow { color: #fbbf24; font-style: italic; }
+    .demo-content .live-demo a { color: #60a5fa; }
+    .demo-content .live-demo img { max-width: 100%; height: auto; border-radius: 8px; margin: 10px 0; display: block; }
+    .demo-content .live-demo ul { margin: 12px 0 0 0; padding-left: 24px; color: #a855f7; }
+    .takeaways {
+      border-left: 4px solid var(--accent);
+      background: var(--panel-strong);
+      border-radius: 0 10px 10px 0;
+      padding: 14px 18px;
+      margin-top: 24px;
+    }
+    .takeaways h4 { margin: 0 0 8px 0; font-size: 0.95rem; color: var(--accent2); }
+    .takeaways ul { margin: 0; padding-left: 18px; }
+    .takeaways li { margin-bottom: 4px; color: var(--muted); font-size: 0.95rem; }
+    .takeaways li:last-child { margin-bottom: 0; }
+    .demo-content hr { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav-inner">
+      <a class="back-link" href="course.html">← Back to Course Work</a>
+      <span style="color: var(--muted); font-size: 0.9rem;">Session 9</span>
+    </div>
+  </nav>
+  <div class="container">
+    <main>
+      <header class="session-header">
+        <h1>Session 9 Demo — Google Fonts &amp; CSS Selectors</h1>
+        <p>Loading web fonts with preconnect, and targeting elements with classes, IDs, and multiple classes.</p>
+      </header>
+      <div class="demo-content">
+        <p class="section-label">From class: Fonts + <code>class</code> and <code>id</code> selectors</p>
+
+        <p><strong>1. Google Fonts in the <code>&lt;head&gt;</code></strong> — Preconnect speeds up font loading; then we load the font stylesheet:</p>
+        <div class="code-block">
+          <code>&lt;link rel="preconnect" href="https://fonts.googleapis.com" /&gt;
+&lt;link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /&gt;
+&lt;link href="https://fonts.googleapis.com/css2?family=Libertinus+Keyboard&amp;family=Oswald:wght@200..700&amp;display=swap" rel="stylesheet" /&gt;</code>
+        </div>
+
+        <p><strong>2. Inline <code>&lt;style&gt;</code></strong> — Element selectors (<code>h1</code>, <code>p</code>) plus classes and IDs in the HTML:</p>
+        <div class="code-block">
+          <code>h1 { color: blue; }
+p { color: purple; }
+
+/* In HTML: class="yellow", id="second-paragraph", class="julissa yellow" */</code>
+        </div>
+
+        <p>External <code>styles.css</code> would define <code>.yellow</code> (e.g. color or background). In the live demo below, <code>.yellow</code> is yellow text, <code>#second-paragraph</code> has a left border, and <code>.julissa.yellow</code> uses both classes.</p>
+
+        <hr>
+
+        <p class="section-label">Live demo (same HTML from class, with fonts applied)</p>
+        <div class="live-demo">
+          <h1>This is a demo page</h1>
+          <p class="yellow">Hello, world!</p>
+          <p class="yellow" id="second-paragraph">
+            Welcome to the demo page. I am a student at
+            <a href="https://www.babson.edu" target="_blank" rel="noreferrer">Babson College</a>.
+            <img
+              src="https://entrepreneurship.babson.edu/wp-content/uploads/2021/09/USNWR-campus-drone-1200x630-1.jpg"
+              alt="A picture of Babson Campus"
+              width="400"
+            />
+          </p>
+          <h2 class="yellow">Another Section</h2>
+          <p>
+            This is another section of the demo page.
+            <img src="https://placehold.co/300x200/1a2744/60a5fa?text=cute+cat" alt="A cute cat" width="300" /> more words
+          </p>
+          <p class="julissa yellow">
+            You can add more paragraphs and content here. Consider including
+            additional images, lists, or other HTML elements to make your page more
+            interesting.
+          </p>
+          <ul>
+            <li><a href="course.html">Homepage</a></li>
+            <li><a href="course.html">Course Work</a></li>
+            <li><a href="https://oim3690.github.io" target="_blank" rel="noreferrer">My Personal Website</a></li>
+          </ul>
+        </div>
+
+        <div class="takeaways">
+          <h4>What we learned</h4>
+          <ul>
+            <li><strong>Preconnect</strong> — <code>rel="preconnect"</code> tells the browser to connect to fonts.googleapis.com and fonts.gstatic.com early, so font files load faster.</li>
+            <li><strong><code>display=swap</code></strong> — Shows fallback text immediately, then swaps in the custom font when it loads (avoids invisible text).</li>
+            <li><strong>Classes (e.g. <code>.yellow</code>)</strong> — Reusable; one class can be on many elements. Use for repeated styling.</li>
+            <li><strong>IDs (e.g. <code>#second-paragraph</code>)</strong> — Unique per page. Use for one-off styling or JavaScript hooks. Higher specificity than classes.</li>
+            <li><strong>Multiple classes</strong> — <code>class="julissa yellow"</code> means the element matches both <code>.julissa</code> and <code>.yellow</code>; you can combine rules (e.g. <code>.julissa.yellow</code> targets only elements that have both).</li>
+          </ul>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

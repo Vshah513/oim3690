@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Session 7 Demo | OIM3690 - Viraj Shah</title>
+  <style>
+    :root {
+      --bg: #1a2744;
+      --panel: rgba(232, 224, 212, 0.08);
+      --panel-strong: rgba(232, 224, 212, 0.12);
+      --text: rgba(245, 240, 232, 0.95);
+      --muted: rgba(245, 240, 232, 0.72);
+      --border: rgba(232, 224, 212, 0.18);
+      --accent: #2563eb;
+      --accent2: #60a5fa;
+      --radius: 16px;
+      --max: 980px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.6;
+    }
+    .container { max-width: var(--max); margin: 0 auto; padding: 24px; }
+    .nav {
+      position: sticky; top: 0; z-index: 50;
+      backdrop-filter: blur(12px);
+      background: color-mix(in srgb, var(--bg) 85%, transparent);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 24px; max-width: var(--max); margin: 0 auto;
+    }
+    .back-link {
+      padding: 8px 14px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--panel);
+      color: var(--text);
+      font-size: 0.9rem;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .back-link:hover { background: var(--panel-strong); border-color: var(--accent); }
+    main { padding: 32px 0; }
+    .session-header { margin-bottom: 28px; }
+    .session-header h1 { margin: 0 0 8px 0; font-size: 1.75rem; }
+    .session-header p { margin: 0; color: var(--muted); font-size: 1rem; }
+    .demo-content {
+      border: 1px solid var(--border);
+      background: var(--panel);
+      border-radius: var(--radius);
+      padding: 28px;
+      min-height: 200px;
+    }
+    .demo-content p { margin: 0 0 12px 0; color: var(--muted); }
+    .demo-content .section-label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent2);
+      margin: 24px 0 8px 0;
+    }
+    .demo-content .section-label:first-of-type { margin-top: 0; }
+    .demo-content h1 { font-size: 1.5rem; margin: 0 0 4px 0; }
+    .demo-content h2 { font-size: 1.25rem; margin: 16px 0 4px 0; }
+    .demo-content h3 { font-size: 1.1rem; margin: 14px 0 6px 0; color: var(--text); }
+    .demo-content h4, .demo-content h5, .demo-content h6 { margin: 8px 0 4px 0; font-size: 1rem; color: var(--muted); }
+    .demo-content hr { border: none; border-top: 1px solid var(--border); margin: 16px 0; }
+    .demo-content ul, .demo-content ol { margin: 8px 0; padding-left: 24px; color: var(--text); }
+    .demo-content li { margin-bottom: 4px; }
+    .demo-content ul ul { padding-left: 20px; margin: 4px 0; }
+    .demo-content a { color: var(--accent2); text-decoration: none; }
+    .demo-content a:hover { text-decoration: underline; }
+    .demo-content .div-demo {
+      border: 1px solid var(--border);
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 8px;
+      background: var(--panel-strong);
+    }
+    .demo-content .span-red { color: #f87171; }
+    .demo-content .span-bg { background: rgba(250, 204, 21, 0.35); padding: 0 4px; border-radius: 4px; }
+    .demo-content button {
+      padding: 8px 14px;
+      margin-right: 8px;
+      margin-bottom: 8px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--panel-strong);
+      color: var(--text);
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+    .demo-content button:hover { border-color: var(--accent); background: var(--panel); }
+    .demo-content footer {
+      margin-top: 24px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+    .demo-content footer p { margin: 0; }
+    .code-block {
+      background: rgba(0,0,0,0.35);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-family: ui-monospace, "Cascadia Code", "SF Mono", Monaco, monospace;
+      font-size: 0.8rem;
+      line-height: 1.5;
+      color: var(--accent2);
+      overflow-x: auto;
+      margin: 10px 0;
+    }
+    .code-block code { white-space: pre; }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav-inner">
+      <a class="back-link" href="course.html">← Back to Course Work</a>
+      <span style="color: var(--muted); font-size: 0.9rem;">Session 7</span>
+    </div>
+  </nav>
+  <div class="container">
+    <main>
+      <header class="session-header">
+        <h1>Session 7 Demo — Basic HTML Elements</h1>
+        <p>What I learned in this session: headings, paragraphs, lists, links, images, buttons, div, span, and footer.</p>
+      </header>
+      <div class="demo-content">
+        <p class="section-label">From class: Basic HTML Elements for Beginners</p>
+
+        <!-- HEADINGS -->
+        <h1>Main Title (h1)</h1>
+        <h2>Subtitle (h2)</h2>
+        <h3>Section Title (h3)</h3>
+        <h4>Small Title (h4)</h4>
+        <h5>Smaller Title (h5)</h5>
+        <h6>Smallest Title (h6)</h6>
+
+        <p>This is a paragraph. It's used for regular text content. You can add multiple paragraphs to organize your content.</p>
+        <p>This is another paragraph. Notice how each paragraph appears on a new line with space between them.</p>
+
+        <p>This is a line.<br>This appears on a new line but in the same paragraph.</p>
+
+        <hr>
+
+        <h3>Text formatting</h3>
+        <p>
+          <strong>Strong text</strong> — important content (bold)<br>
+          <b>Bold text</b> — visual only<br>
+          <em>Emphasized text</em> — for emphasis (italic)<br>
+          <i>Italic text</i> — visual only<br>
+          <u>Underlined text</u>
+        </p>
+
+        <h3>Unordered list (bullets)</h3>
+        <ul>
+          <li>First item</li>
+          <li>Second item</li>
+          <li>Third item</li>
+          <li>Nested list:
+            <ul>
+              <li>Sub-item 1</li>
+              <li>Sub-item 2</li>
+            </ul>
+          </li>
+        </ul>
+
+        <h3>Ordered list (numbered)</h3>
+        <ol>
+          <li>First step</li>
+          <li>Second step</li>
+          <li>Third step</li>
+        </ol>
+
+        <h3>Links</h3>
+        <p>
+          <a href="https://www.google.com">Click here to visit Google</a><br>
+          <a href="course.html">Link to another page in your site</a><br>
+          <a href="https://www.babson.edu" target="_blank" rel="noreferrer">Open link in new tab</a>
+        </p>
+
+        <h3>Images</h3>
+        <p>
+          <code>&lt;img src="..." alt="A cute cat" width="200" height="150"&gt;</code> — self-closing tag with src, alt, and optional width/height.
+        </p>
+        <p>
+          <img src="https://placehold.co/200x150/2563eb/60a5fa?text=img+demo" alt="A cute cat" width="200" height="150" style="border-radius: 8px;">
+        </p>
+
+        <h3>Buttons</h3>
+        <p>
+          <button type="button">Click me!</button>
+          <button type="submit">Submit</button>
+          <button type="reset">Reset</button>
+        </p>
+
+        <h3>Containers (div)</h3>
+        <div class="div-demo">
+          <p style="margin: 0 0 8px 0;">This content is inside a div container.</p>
+          <p style="margin: 0;">Divs group elements together (e.g. with border, padding, margin).</p>
+        </div>
+
+        <h3>Inline text (span)</h3>
+        <p>This is normal text, but <span class="span-red">this part is red</span> and <span class="span-bg">this has a highlighted background</span>.</p>
+
+        <hr>
+        <footer>
+          <p>&copy; 2026 My Learning Website. All rights reserved.</p>
+        </footer>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

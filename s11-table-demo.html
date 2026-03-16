@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Session 11 — Table Demo | OIM3690 - Viraj Shah</title>
+  <style>
+    :root {
+      --bg: #1a2744;
+      --panel: rgba(232, 224, 212, 0.08);
+      --panel-strong: rgba(232, 224, 212, 0.12);
+      --text: rgba(245, 240, 232, 0.95);
+      --muted: rgba(245, 240, 232, 0.72);
+      --border: rgba(232, 224, 212, 0.18);
+      --accent: #2563eb;
+      --accent2: #60a5fa;
+      --radius: 16px;
+      --max: 980px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.6;
+    }
+    .container { max-width: var(--max); margin: 0 auto; padding: 24px; }
+    .nav {
+      position: sticky; top: 0; z-index: 50;
+      backdrop-filter: blur(12px);
+      background: color-mix(in srgb, var(--bg) 85%, transparent);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 24px; max-width: var(--max); margin: 0 auto;
+    }
+    .back-link {
+      padding: 8px 14px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--panel);
+      color: var(--text);
+      font-size: 0.9rem;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .back-link:hover { background: var(--panel-strong); border-color: var(--accent); }
+    main { padding: 32px 0; }
+    .session-header { margin-bottom: 28px; }
+    .session-header h1 { margin: 0 0 8px 0; font-size: 1.75rem; }
+    .session-header p { margin: 0; color: var(--muted); font-size: 1rem; }
+
+    .demo-content {
+      border: 1px solid var(--border);
+      background: var(--panel);
+      border-radius: var(--radius);
+      padding: 28px;
+    }
+    .demo-content .intro { color: var(--muted); margin-bottom: 24px; }
+
+    /* Table styling — replace border="1" with CSS */
+    .roster-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      font-size: 0.95rem;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .roster-table caption {
+      caption-side: top;
+      text-align: left;
+      padding: 0 0 12px 0;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .roster-table th,
+    .roster-table td {
+      padding: 12px 14px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+    .roster-table th {
+      background: var(--panel-strong);
+      color: var(--accent2);
+      font-weight: 600;
+    }
+    .roster-table tbody tr:hover {
+      background: rgba(96, 165, 250, 0.08);
+    }
+    .roster-table tbody tr:last-child td {
+      border-bottom: none;
+    }
+    .roster-table td:nth-child(1) { font-variant-numeric: tabular-nums; color: var(--muted); }
+    .roster-table td:nth-child(4) { font-variant-numeric: tabular-nums; }
+
+    .code-block {
+      background: rgba(0,0,0,0.35);
+      border-left: 4px solid var(--accent);
+      padding: 10px 14px;
+      margin-top: 20px;
+      font-family: ui-monospace, "Cascadia Code", "SF Mono", Monaco, monospace;
+      font-size: 0.8rem;
+      line-height: 1.5;
+      color: var(--accent2);
+      overflow-x: auto;
+      border-radius: 0 8px 8px 0;
+    }
+    .code-block code { white-space: pre; }
+    .takeaways {
+      border-left: 4px solid var(--accent);
+      background: var(--panel-strong);
+      border-radius: 0 12px 12px 0;
+      padding: 14px 18px;
+      margin-top: 28px;
+    }
+    .takeaways h4 { margin: 0 0 8px 0; font-size: 0.95rem; color: var(--accent2); }
+    .takeaways ul { margin: 0; padding-left: 18px; }
+    .takeaways li { margin-bottom: 4px; color: var(--muted); font-size: 0.95rem; }
+    .takeaways li:last-child { margin-bottom: 0; }
+    .best-practice { font-size: 0.85rem; color: var(--muted); margin-top: 16px; padding: 12px 14px; border: 1px dashed var(--border); border-radius: 8px; }
+    .best-practice strong { color: var(--text); }
+
+    @media (max-width: 640px) {
+      .roster-table { font-size: 0.85rem; }
+      .roster-table th, .roster-table td { padding: 8px 10px; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav-inner">
+      <a class="back-link" href="course.html">← Back to Course Work</a>
+      <span style="color: var(--muted); font-size: 0.9rem;">Session 11 — Table</span>
+    </div>
+  </nav>
+  <div class="container">
+    <main>
+      <header class="session-header">
+        <h1>Session 11 — Table Demo</h1>
+        <p class="intro">Semantic HTML tables with <code>&lt;thead&gt;</code>, <code>&lt;tbody&gt;</code>, <code>&lt;th&gt;</code>, and <code>&lt;td&gt;</code>. Use tables for tabular data (rosters, schedules, comparisons), not for page layout.</p>
+      </header>
+      <div class="demo-content">
+        <h2>Student Roster</h2>
+        <table class="roster-table">
+          <caption>Sample student roster from class</caption>
+          <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Name</th>
+              <th scope="col">Major</th>
+              <th scope="col">GPA</th>
+              <th scope="col">Year</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>001</td>
+              <td>Sarah Johnson</td>
+              <td>Computer Science</td>
+              <td>3.8</td>
+              <td>Junior</td>
+            </tr>
+            <tr>
+              <td>002</td>
+              <td>Marcus Chen</td>
+              <td>Business</td>
+              <td>3.6</td>
+              <td>Senior</td>
+            </tr>
+            <tr>
+              <td>003</td>
+              <td>Emily Rodriguez</td>
+              <td>Engineering</td>
+              <td>3.9</td>
+              <td>Sophomore</td>
+            </tr>
+            <tr>
+              <td>004</td>
+              <td>Andrew Kim</td>
+              <td>Data Science</td>
+              <td>3.7</td>
+              <td>Junior</td>
+            </tr>
+            <tr>
+              <td>005</td>
+              <td>Jessica Lee</td>
+              <td>Marketing</td>
+              <td>3.5</td>
+              <td>Senior</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p class="section-label" style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent2); margin-top: 24px;">HTML structure from class</p>
+        <div class="code-block">
+          <code>&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;&lt;th&gt;ID&lt;/th&gt;&lt;th&gt;Name&lt;/th&gt; ...
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;&lt;td&gt;001&lt;/td&gt;&lt;td&gt;Sarah Johnson&lt;/td&gt; ...
+  &lt;/tbody&gt;
+&lt;/table&gt;</code>
+        </div>
+
+        <div class="takeaways">
+          <h4>What we learned</h4>
+          <ul>
+            <li><strong>&lt;table&gt;</strong> — Wraps the whole table. Use for tabular data (rows and columns that relate to each other).</li>
+            <li><strong>&lt;thead&gt;</strong> — Header section. Contains one or more <code>&lt;tr&gt;</code> with <code>&lt;th&gt;</code> cells for column (or row) headers.</li>
+            <li><strong>&lt;tbody&gt;</strong> — Body section. Contains <code>&lt;tr&gt;</code> rows with <code>&lt;td&gt;</code> data cells.</li>
+            <li><strong>&lt;th&gt;</strong> — Header cell (bold by default). Use <code>scope="col"</code> for column headers or <code>scope="row"</code> for row headers so screen readers can announce the table correctly.</li>
+            <li><strong>&lt;td&gt;</strong> — Data cell. One per column per row.</li>
+            <li><strong>&lt;caption&gt;</strong> — Optional. Short title for the table; helps accessibility and is read by screen readers.</li>
+          </ul>
+        </div>
+
+        <div class="best-practice">
+          <strong>Best practice:</strong> Avoid <code>border="1"</code> on the <code>&lt;table&gt;</code> tag. Use CSS (<code>border</code>, <code>border-collapse: collapse</code>) to style the table so you can control spacing, colors, and responsiveness. Use tables for data only — use Flexbox or Grid for page layout.
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>
